@@ -3,16 +3,18 @@
 <xs:element name="Shop">
 <xs:complexType>
 <xs:sequence>
-	<xs:element name="Category">	
-		<xs:complexType>	
+	<xs:element name="Category" maxOccurs="unbounded" minOccurs="1">
+		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="SubCategory">
+				<xs:element name="catname" type="xs:string"/>
+				<xs:element name="SubCategory" maxOccurs="unbounded" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="Product">
+							<xs:element name="subcatname" type="xs:string"/>
+							<xs:element name="Product" maxOccurs="unbounded" minOccurs="0">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="Vendor" base="xs:string" />
+										<xs:element name="Vendor" type="xs:string" />
 										<xs:element name="Model">
 											<xs:simpleType>
 												<xs:restriction base="xs:string">
@@ -28,20 +30,23 @@
 											</xs:simpleType>
 										</xs:element>
 										<xs:element name="colour" type="xs:string" />
-										<xs:group ref="availability" />
 										<xs:group name="availability">
 											<xs:choice>
 												<xs:group name="available">
 													<xs:all>
 														<xs:element name="Price">
 															<xs:restriction base="xs:decimal">
-															<fractionDigits value="2" />
+															<xs:fractionDigits value="2" />
 															</xs:restriction>
 														</xs:element>
 														<xs:element name="Quantity" base="xs:integer" />
 													</xs:all>
 												</xs:group>
-												<xs:element name="Out of stock" />
+												<xs:element name="Out">
+													<xs:restriction base="xs:string">
+													<xs:enumeration value="Out of stock"/>
+													</xs:restriction>
+												</xs:element>
 											</xs:choice>
 										</xs:group>
 									</xs:sequence>
