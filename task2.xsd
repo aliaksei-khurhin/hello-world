@@ -1,54 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<xs:element name="Shop">
-<xs:complexType>
-<xs:sequence>
-	<xs:element name="Category" maxOccurs="unbounded" minOccurs="1">
+	<xs:element name="Shop">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="catname" type="xs:string"/>
-				<xs:element name="SubCategory" maxOccurs="unbounded" minOccurs="0">
+				<xs:element name="Category" maxOccurs="unbounded" minOccurs="1">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="subcatname" type="xs:string"/>
-							<xs:element name="Product" maxOccurs="unbounded" minOccurs="0">
+							<xs:element name="catname" type="xs:string"/>
+							<xs:element name="SubCategory" maxOccurs="unbounded" minOccurs="0">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="Vendor" type="xs:string" />
-										<xs:element name="Model">
-											<xs:simpleType>
-												<xs:restriction base="xs:string">
-												<xs:pattern value="[a-zA-Z]{2}[0-9]{3}"/>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
-										<xs:element name="productionDate">
-											<xs:simpleType>
-												<xs:restriction base="xs:string">
-												<xs:pattern value="[0-3][0-9]-[0-1][0-9]-[1-2][0-9]{3}"/>
-												</xs:restriction>	
-											</xs:simpleType>
-										</xs:element>
-										<xs:element name="colour" type="xs:string" />
-										<xs:group name="availability">
-											<xs:choice>
-												<xs:group name="available">
-													<xs:all>
-														<xs:element name="Price">
-															<xs:restriction base="xs:decimal">
-															<xs:fractionDigits value="2" />
+										<xs:element name="subcatname" type="xs:string"/>
+										<xs:element name="Product" maxOccurs="unbounded" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Vendor" type="xs:string" />
+													<xs:element name="Model">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+															<xs:pattern value="[a-zA-Z]{2}[0-9]{3}"/>
 															</xs:restriction>
-														</xs:element>
-														<xs:element name="Quantity" base="xs:integer" />
-													</xs:all>
-												</xs:group>
-												<xs:element name="Out">
-													<xs:restriction base="xs:string">
-													<xs:enumeration value="Out of stock"/>
-													</xs:restriction>
-												</xs:element>
-											</xs:choice>
-										</xs:group>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="productionDate">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+															<xs:pattern value="((0\d)|([12]\d)|(3[01]))-((0\d)|(1[012]))-([12]\d{3})"/>
+															</xs:restriction>	
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="colour" type="xs:string" />
+													<xs:element name="availability">
+														<xs:complexType>
+															<xs:choice>
+																<xs:element name="available" minOccurs="0">
+																	<xs:complexType>  
+																		<xs:all>    
+																			<xs:element name="Price" minOccurs="0">
+																				<xs:simpleType>
+																				<xs:restriction base="xs:decimal">
+																				<xs:fractionDigits value="2" />
+																				</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="Quantity" type="xs:integer" minOccurs="0"/>
+																		</xs:all>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Out" minOccurs="0">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																		<xs:enumeration value="Out of stock"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>		
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
@@ -58,7 +69,4 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-</xs:sequence>
-</xs:complexType>
-</xs:element>
 </xs:schema>
